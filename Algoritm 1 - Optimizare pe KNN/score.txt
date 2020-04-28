@@ -1,0 +1,3 @@
+Score for default k is: 57.70925110132159
+Score for normal parameter tuning is: 62.55506607929515
+Score for optimized parameter tuning is: 62.55506607929515

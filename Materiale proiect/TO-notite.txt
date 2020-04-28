@@ -1,0 +1,28 @@
+Problema data este una de optimizare pentru un SVM de clasificare binara (adica doar 2 valori posibile de rezultat, -1 si 1).
+Se analizeaza N caracteristici (fiecare devine o dimensiune in SVM).
+Abordarea lucrarii este de a cauta caracteristicile cele mai importante ale calor valori determina aceasta clasificare.
+Unele date nu sunt importante pentru aceasta clasificare si pe ele se efectueaza operatii costisitoare care nu sunt necesare altfel.
+Problema initiala de creare a unui clasificator primeste la inceput un set de date {(x1, y1), . . . ,(xL, yL)} care sunt date de antrenare si pe baza carora se construieste clasificatorul.
+xi reprezinta un punct in spatiul RN care defineste unic o data de intrare. Datele propriu-zise pe care se va aplica acest algoritm de clasificare vor fi tot din spatiul RN.
+yi reprezinta valori din {-1, 1} si sunt clasele din care apartin aceste puncte xi.
+Problema initiala se concentreaza pe construirea unui asemenea clasificator folosind un SVM, importanta fiind acuratetea si nu optimizarea algoritmului.
+Problema abordata de articol este optimizarea acestui clasificator.
+Functiile SVM "loss function", de exemplu L1-SVM si L2-SVM fac aceasta optimizare insa algoritmii sunt costisitori, mai ales pe seturi de date foarte mari.
+Se incearca deci mai multe metode de modificare a acestor algoritmi pentru a reduce numarul de calcule efectuate.
+Metoda descrisa in articol este o metoda aplicata pe L2-SVM de optimizare a acestui algoritm.
+
+Metoda consta in aplcarea mai multor iteratii asemenea celei descrise mai jos, pornind cu un b(0):
+Pentru iteratia b(k+1) avem:
+
+a(k, 1) = b(k);
+a(k, N+1) = b(k+1);
+pentru i = 2 la n:
+	a(k, i) = [b(k+1) (1), ... , b(k+1) (i-1), b(k) (i), ... , b(k) (N)]T (linia transpusa in coloana), orice i = 2, ... ,N
+	// INSERT ECUATIA (5) DIN LUCRARE (CEA CU f), NOI O NOTAM CU ECTUATIA *
+	(calculam b(k+1) (i) pentru a fi folosit la pasul urmator)
+	// practic, la fiecare pas din aceasta iteratie mai mica, claculam acest b(k+1) si il vom folosi la urmatoarea iteratie pentru calculul lui b (k+2)
+	
+=> algoritmul optimizat
+
+Functia f descrisa mai sus face calcule numai in cazul in care e nevoie. De fiecare data cand se foloseste acest f (o data per interatie mica, N ori per iteratie mare) se calculeaza un gradient pe componenta curenta (i din iteratia mica).
+Daca proiectia gradientului (calculata dupa (8) din lucrare) este 0 (dreapta d=0 este optimul ecuatiei *), rezulta ca nu mai trebuie updatata componenta i din a(k, i) si suntem scutiti de calcule aditionale pentru aceasta iteratie, de aici optimizarea.

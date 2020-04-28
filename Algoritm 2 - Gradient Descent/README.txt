@@ -1,0 +1,1 @@
+La gradient descent, incearca sa faci cum am facut la KNN: versiune de algoritm cu si fara gradient descent.

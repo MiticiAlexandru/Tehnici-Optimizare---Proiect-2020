@@ -1,0 +1,4 @@
+https://towardsdatascience.com/k-nearest-neighbors-and-its-optimization-2e3f6797af04
+https://arxiv.org/pdf/1708.04321.pdf
+
+Dataset pentru KNN: https://www.kaggle.com/ronitf/heart-disease-uci
